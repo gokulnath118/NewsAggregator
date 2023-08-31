@@ -1,0 +1,121 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <script>
+      function reload() {
+        location.reload();
+      }
+    </script>
+    <style>
+      a:link {
+        color: green;
+        background-color: transparent;
+        text-decoration: none;
+      }
+
+      .flag img {
+        width: 50%;
+        height: 100%;
+      }
+
+      .news-img{
+        display:block;
+        margin:auto;
+        width:320px;
+        height:183px;
+      }
+    </style>
+  </head>
+  <!--Header-->
+
+  <body style="background-color: black;">
+    <ul class="nav justify-content-end">
+      <li class="nav-item">
+        <a class="btn btn-danger" style="background-color:red;" href="\News24">Home</a>
+      </li>
+      <li class="nav-item">
+        <a href="/" class="btn btn-danger" style="background-color:red;color:white">Logout</a>
+      </li>
+    </ul>
+
+
+    <div class="container-fluid jumbotron"  style="background-color: rgb(83, 81, 81);">
+        <div class="row">
+      <div class="col-sm d-flex justify-content-sm-center align-items-cente flag">
+        <a href="1">
+          <img src="{% static 'image/india.png' %}" alt="india image"/></a>
+      </div>
+      <div class="col-sm d-flex justify-content-sm-center align-items-center">
+        <h1>News Aggregator</h1>
+      </div>
+      <div class="col-sm d-flex justify-content-sm-center align-items-cente flag">
+        <a href="2">
+          <img src="{% static 'image/world.png' %}" alt="world image"/></a>
+      </div>
+    </div>
+    <div class="d-flex justify-content-sm-center align-items-center">
+    <a class="btn btn-danger" onclick="return reload()">Refresh News</a>
+  </div>
+  
+
+    </div>
+
+    {% comment %} NEWS {% endcomment %}
+    <!--(India News)-->
+      {% if toi_news %}
+      <div class="text-center" style="color:red"><h3>India News</h3></div>
+      <div class="card-columns " style="padding: 10px; margin-left: 150px;margin-right: 10px;">{% for n in toi_news %}
+          <div class="card" style="width: 18rem;border:5px white solid;margin-bottom: 50px;">
+            <img class="card-img-top" src ={{n.2}}>
+            <div class="card-body">
+              <h5 class="card-title"><div class="card-body">
+                <a href="{{ 'https://timesofindia.indiatimes.com/' }}{{n.1 }}">{{ n.0 }}</a></h5>
+            </div>
+          </div>
+          {% endfor %}
+          <br/>
+        </div>
+        {% endif %}
+      </hr>
+      <!--(World News)-->
+      {% if ht_news %}
+        <center><h3 class="text-center"  style="color:red">World News</h3></center>
+        <div class="card-columns" style="padding: 10px; margin-left: 150px;margin-right: 10px;">
+          {% for n in ht_news %}
+          <div class="card" style="width: 18rem;border:5px white solid;margin-bottom: 50px;">
+            <img class="card-img-top" src ={{n.2}}>
+            <div class="card-body">
+              <h5 class="card-title"><div class="card-body">
+                <a href="{{n.1 }}">{{ n.0 }}</a></h5>
+              </div>
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+</div> 
+<script>
+    src="http://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous">
+  </script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"
+  ></script>
+</body>
+</html> 

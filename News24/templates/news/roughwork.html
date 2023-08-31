@@ -1,0 +1,322 @@
+{% comment %} {% comment %} {% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <script>
+      function reload() {
+        location.reload();
+      }
+    </script>
+    <style>
+      a:link {
+        color: green;
+        background-color: transparent;
+        text-decoration: none;
+      }
+
+      .flag img {
+        width: 60%;
+        height: 100%;
+      }
+
+      .news-img{
+        width:320px;
+        height:183px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid jumbotron">
+        <div class="row">
+      <div class="col-sm d-flex justify-content-sm-center align-items-cente flag">
+        <a href="1">
+          <img src="{% static 'image/india.png' %}" alt="My image"
+          
+        /></a>
+      </div>
+      <div class="col-sm d-flex justify-content-sm-center align-items-center">
+        <h1>News Aggregator</h1>
+      </div>
+      <div class="col-sm d-flex justify-content-sm-center align-items-cente flag">
+        <a href="2">
+          <img src="{% static 'image/world.png' %}" alt="My image"
+        /></a>
+      </div>
+    </div>
+    <div class="d-flex justify-content-sm-center align-items-center">
+    <a class="btn btn-danger" onclick="return reload()">Refresh News</a>
+    </div>
+    </div>
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+        {% if toi_news %}
+        <div class="col">
+        <center><h3 class="text-centre">India News</h3></center>
+          {% for n in toi_news %}
+          <div class="card">
+            <img src={{n.2}}  class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title"><a href="{{ 'https://timesofindia.indiatimes.com/' }}{{n.1 }}">
+                 {{ n.0 }}</a></h5>
+            </div>
+          </div>
+          {% endfor %}
+          <br />
+        </div>
+        {% endif %}
+        {% if ht_news %}
+        <div class="col">
+        <center><h3 class="text-centre">World News</h3></center>
+          {% for n in ht_news %}
+          <div class="card">
+            <img href="{{n.1}}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title"><a href="{{n.1}}">- {{n.0}}</a></h5>
+              </div>
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+</div> 
+<script>
+    src="http://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous">
+  </script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"
+  ></script>
+</body>
+</html>  {% endcomment %}
+
+{% comment %} Old one
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <script>
+      function reload() {
+        location.reload();
+      }
+    </script>
+    <style>
+      a:link {
+        color: green;
+        background-color: transparent;
+        text-decoration: none;
+      }
+
+      .flag img {
+        width: 60%;
+        height: 100%;
+      }
+
+      .news-img{
+        width:320px;
+        height:183px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid jumbotron">
+        <div class="row">
+      <div class="col-sm d-flex justify-content-sm-center align-items-cente flag">
+        <a href="1">
+          <img src="{% static 'image/india.png' %}" alt="My image"
+          
+        /></a>
+      </div>
+      <div class="col-sm d-flex justify-content-sm-center align-items-center">
+        <h1>News Aggregator</h1>
+      </div>
+      <div class="col-sm d-flex justify-content-sm-center align-items-cente flag">
+        <a href="2">
+          <img src="{% static 'image/world.png' %}" alt="My image"
+        /></a>
+      </div>
+    </div>
+    <div class="d-flex justify-content-sm-center align-items-center">
+    <a class="btn btn-danger" onclick="return reload()">Refresh News</a>
+    </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        {% if toi_news %}
+        <div class="col-sm">
+          <center><h3 class="text-centre">India News</h3></center>
+          {% for n in toi_news %}
+          <a href="{{ 'https://timesofindia.indiatimes.com/' }}{{n.1 }}"
+            >
+            <img src={{n.2}} class="news-img">
+            <p style="font-size:20px">- {{ n.0 }}</p></a
+          >
+          <hr />
+          {% endfor %}
+          <br />
+        </div>
+        {% endif %} {% if ht_news %}
+        <div class="col-sm">
+          <center><h3 class="text-centre">World News</h3></center>
+          {% for n in ht_news %}
+          <a href="{{n.1}}">
+            <img src={{n.2}} class="news-img">
+            <p style="font-size:20px">- {{n.0}}</p> </a>
+          <hr />
+          {% endfor %}
+          <br />
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    <script>
+      src="http://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+          crossorigin="anonymous">
+    </script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html> {% endcomment %}
+
+
+
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <script>
+      function reload() {
+        location.reload();
+      }
+    </script>
+    <style>
+      a:link {
+        color: green;
+        background-color: transparent;
+        text-decoration: none;
+      }
+
+      .flag img {
+        width: 60%;
+        height: 100%;
+      }
+
+      .news-img{
+        display:block;
+        margin:auto;
+        width:320px;
+        height:183px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid jumbotron">
+        <div class="row">
+      <div class="col-sm d-flex justify-content-sm-center align-items-cente flag">
+        <a href="1">
+          <img src="{% static 'image/india.png' %}" alt="My image"
+          
+        /></a>
+      </div>
+      <div class="col-sm d-flex justify-content-sm-center align-items-center">
+        <a href="/News24" style="color:black"><h1>News Aggregator</h1></a>
+      </div>
+      <div class="col-sm d-flex justify-content-sm-center align-items-cente flag">
+        <a href="2">
+          <img src="{% static 'image/world.png' %}" alt="My image"
+        /></a>
+      </div>
+    </div>
+    <div class="d-flex justify-content-sm-center align-items-center">
+    <a class="btn btn-danger" onclick="return reload()">Refresh News</a>
+    </div>
+    </div>
+
+    {% comment %} <NEWS> {% endcomment %}
+      <div class="card-columns" style="padding: 10px; margin-left: 150px;margin-right: 10px;">
+        {% if toi_news %}
+        <div class="col">
+        <center><h3 class="text-centre">India News</h3></center>
+          {% for n in toi_news %}
+          <div class="card" style="width: 18rem;border:5px white solid;margin-bottom: 50px;">
+            <img class="card-img-top" src ={{n.2}}>
+            <div class="card-body">
+              <h5 class="card-title"><div class="card-body">
+                <a href="{{ 'https://timesofindia.indiatimes.com/' }}{{n.1 }}">
+                 {{ n.0 }}</a></h5>
+            </div>
+          </div>
+          {% endfor %}
+          <br />
+        </div>
+        {% endif %}
+        {% if ht_news %}
+        <div class="col">
+        <center><h3 class="text-centre">World News</h3></center>
+          {% for n in ht_news %}
+          <div class="card" style="width: 18rem;border:5px white solid;margin-bottom: 50px;">
+            <img class="card-img-top" src ={{n.2}}>
+            <div class="card-body">
+              <h5 class="card-title"><div class="card-body">
+                <a href="{{n.1 }}">{{ n.0 }}</a></h5>
+              </div>
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+</div> 
+<script>
+    src="http://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous">
+  </script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"
+  ></script>
+</body>
+</html>  {% endcomment %}
