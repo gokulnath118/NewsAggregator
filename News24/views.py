@@ -81,7 +81,7 @@ def getWorldOne(url):
 def index(req,id=None):
     if req.method == "POST" and id:
         l=req.POST.get("fetch", "")
-        print(l)
+        # print(l)
         # print(l)
         if id==1:
         #     # print(getIndiaOne(l[1]))
