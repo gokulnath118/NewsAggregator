@@ -21,6 +21,8 @@ def getIndia():
         toi_news.append([th.text,a['href'],image])
     return toi_news
 
+
+
 #Getting news from nd tv
 def getWorld():
     url="https://www.ndtv.com/world-news/"
@@ -43,13 +45,60 @@ def getWorld():
         ht_soup = BeautifulSoup(ht_r.content, 'lxml')
     return ht_news
 
-def index(req,id=None):
-    if id==1:
-        return render(req, 'news/index.html', {'toi_news':getIndia(), 'ht_news': []})
-    elif id==2:
-        return render(req, 'news/index.html', {'toi_news':[], 'ht_news': getWorld()})
+
+def getIndiaOne(url):
+    # print(url)
+    one_r = requests.get('https://timesofindia.indiatimes.com/'+url)
+    one_soup = BeautifulSoup(one_r.content, 'lxml')
+    one_content=one_soup.find("div",class_="_s30J")
+    one_head=one_soup.find("h1",class_="HNMDR").get_text()
+    one_img=(one_soup.find("div",class_="wJnIp") or one_soup.find("div",class_="LVN95")).find('img')['src']
+    for br in one_content.select("br"):
+        br.replace_with("\n")
+    return (one_head,one_content.get_text(),one_img)
+
+
+def getWorldOne(url):
+    # print(url)
+    one_r = requests.get(url)
+    one_soup = BeautifulSoup(one_r.content, 'lxml')
+    l_content=((one_soup.find("div",class_="sp-cn ins_storybody")).find_all('p'))
+    one_content=""
+    for i in l_content:
+        temp=i.get_text()
+        one_content+=temp if temp !="" else '\n'
+    one_head=one_soup.find("h1",class_="sp-ttl").get_text()
+    one_img=one_soup.find("div",class_="ins_instory_dv_cont").find('img')  or one_soup.find("div",class_="ins_instory_dv").find('meta',{"itemprop":"thumbnailUrl"})
+    if one_img.has_attr('src'):
+        one_img=one_img['src']
     else:
-        return render(req, 'news/index.html', {'toi_news':getIndia(), 'ht_news': getWorld()})
+        one_img=one_img['content']
+    # for br in one_content.select("br"):
+    #     br.replace_with("\n")
+    return (one_head,one_content,one_img)
+    # one_content.get_text()
+
+def index(req,id=None):
+    if req.method == "POST" and id:
+        l=req.POST.get("fetch", "")
+        print(l)
+        # print(l)
+        if id==1:
+        #     # print(getIndiaOne(l[1]))
+        #     return render(req, 'news/onenews.html', {'h1':l[0],'oneContent':getIndiaOne(l),'imgUrl':l[2]})
+        #     # return render(req, 'news/index.html', {'toi_news':getIndia(), 'ht_news': []})
+            heading,content,img=getIndiaOne(l)
+        if id==2:
+            heading,content,img=getWorldOne(l)
+
+        return render(req,'news/onenews.html',{'h1':heading,'oneContent':content.split('\n'),'imgUrl':img})
+    else:
+        if id==1:
+           return render(req, 'news/index.html', {'toi_news':getIndia(), 'ht_news': []})
+        elif id==2:
+            return render(req, 'news/index.html', {'toi_news':[], 'ht_news': getWorld()})
+        else:
+            return render(req, 'news/index.html', {'toi_news':getIndia(), 'ht_news': getWorld()})
     
 
 
@@ -86,4 +135,7 @@ def LoginPage(request):
 
 def LogoutPage(request):
     return render (request,'login.html')
+
+        
+
 
