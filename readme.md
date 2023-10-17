@@ -1,1 +1,1 @@
-Welcome to the New App
+Welcome to the News App
